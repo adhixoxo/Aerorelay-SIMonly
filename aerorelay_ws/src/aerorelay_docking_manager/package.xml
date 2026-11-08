@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>aerorelay_docking_manager</name>
+  <version>0.0.1</version>
+  <description>Assigns and reports each drone's dock position at the hub</description>
+  <maintainer email="adhiadhi123a@gmail.com">Adithyan Rajeevan</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_python</buildtool_depend>
+  <depend>rclpy</depend>
+  <depend>aerorelay_msgs</depend>
+  <exec_depend>ros2launch</exec_depend>
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

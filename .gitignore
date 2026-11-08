@@ -1,0 +1,29 @@
+# ROS 2 generated files
+**/build/
+**/install/
+**/log/
+
+# Python environments and cache
+venv/
+venv-ardupilot/
+**/.venv/
+**/__pycache__/
+*.pyc
+
+# Flight logs
+*.tlog
+*.tlog.raw
+
+# Backups
+*.save
+*.bak
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local SITL parameter backups
+/mav.parm
+/mav_2_1.parm

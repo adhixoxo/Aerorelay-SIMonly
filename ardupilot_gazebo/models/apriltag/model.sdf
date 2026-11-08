@@ -1,0 +1,39 @@
+<sdf version="1.9">
+
+<model name="apriltag">
+
+  <static>true</static>
+
+  <link name="link">
+
+    <visual name="visual">
+
+      <pose>0 0 0.002 0 0 0</pose>
+
+      <geometry>
+        <plane>
+          <size>0.4 0.4</size>
+        </plane>
+      </geometry>
+
+      <material>
+        <ambient>1 1 1 1</ambient>
+        <diffuse>1 1 1 1</diffuse>
+
+        <pbr>
+          <plastic>
+            <albedo_map>
+              model://apriltag/materials/textures/tag.png
+            </albedo_map>
+          </plastic>
+        </pbr>
+
+      </material>
+
+    </visual>
+
+  </link>
+
+</model>
+
+</sdf>

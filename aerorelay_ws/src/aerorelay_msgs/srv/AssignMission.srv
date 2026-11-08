@@ -1,0 +1,13 @@
+# AssignMission.srv
+# Called by mission_manager (hub side) on a specific drone_controller node
+# to assign it a mission and hand over the target waypoint.
+# ---
+# Request
+string mission_id
+string parcel_id
+geometry_msgs/Point target_location    # where this drone needs to fly to
+string task_type                        # "PICKUP" or "DELIVER"
+---
+# Response
+bool accepted
+string reason                           # populated if accepted=false (e.g. "LOW_BATTERY", "BUSY")

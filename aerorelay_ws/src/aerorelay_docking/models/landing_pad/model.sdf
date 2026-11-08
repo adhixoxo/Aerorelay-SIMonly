@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+
+<model name="landing_pad">
+
+  <static>true</static>
+
+  <link name="pad">
+
+    <collision name="collision">
+      <geometry>
+        <box>
+          <size>0.8 0.8 0.05</size>
+        </box>
+      </geometry>
+    </collision>
+
+    <visual name="visual">
+
+      <geometry>
+        <box>
+          <size>0.8 0.8 0.05</size>
+        </box>
+      </geometry>
+
+      <material>
+        <ambient>0.15 0.15 0.15 1</ambient>
+        <diffuse>0.2 0.2 0.2 1</diffuse>
+      </material>
+
+    </visual>
+
+  </link>
+
+</model>
+
+</sdf>

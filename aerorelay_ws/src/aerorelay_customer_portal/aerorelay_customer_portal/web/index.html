@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AeroRelay Delivery</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; background:#f8fafc; color:#0f172a; margin:0; padding:32px; display:flex; justify-content:center; }
+  .card { background:white; border-radius:12px; padding:28px; max-width:480px; width:100%; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
+  h1 { font-size:20px; margin-bottom:4px; }
+  .subtitle { color:#64748b; font-size:13px; margin-bottom:24px; }
+  fieldset { border:1px solid #e2e8f0; border-radius:8px; padding:12px 16px; margin-bottom:16px; }
+  legend { font-size:12px; color:#64748b; padding:0 6px; }
+  label { display:block; font-size:12px; color:#475569; margin-top:8px; }
+  input { width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px; box-sizing:border-box; font-size:14px; }
+  button { width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; margin-top:8px; }
+  button:hover { background:#1d4ed8; }
+  #result { margin-top:16px; padding:12px; border-radius:8px; font-size:13px; display:none; }
+  #result.success { background:#dcfce7; color:#166534; display:block; }
+  #result.error { background:#fee2e2; color:#991b1b; display:block; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Request a Delivery</h1>
+  <div class="subtitle">AeroRelay Hub &mdash; autonomous drone delivery</div>
+
+  <fieldset>
+    <legend>Pickup location</legend>
+    <label>X <input type="number" id="pickupX" value="5.0" step="0.5"></label>
+    <label>Y <input type="number" id="pickupY" value="0.0" step="0.5"></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Delivery location</legend>
+    <label>X <input type="number" id="deliveryX" value="-5.0" step="0.5"></label>
+    <label>Y <input type="number" id="deliveryY" value="5.0" step="0.5"></label>
+  </fieldset>
+
+  <button onclick="submitRequest()">Request Delivery</button>
+  <div id="result"></div>
+</div>
+
+<script>
+async function submitRequest() {
+  const resultDiv = document.getElementById('result');
+  resultDiv.className = '';
+  resultDiv.textContent = 'Submitting...';
+  resultDiv.style.display = 'block';
+
+  const payload = {
+    pickup_x: parseFloat(document.getElementById('pickupX').value),
+    pickup_y: parseFloat(document.getElementById('pickupY').value),
+    delivery_x: parseFloat(document.getElementById('deliveryX').value),
+    delivery_y: parseFloat(document.getElementById('deliveryY').value),
+  };
+
+  try {
+    const res = await fetch('/api/request_delivery', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (data.accepted) {
+      resultDiv.className = 'success';
+      resultDiv.textContent = `Request accepted! Mission ID: ${data.mission_id}`;
+    } else {
+      resultDiv.className = 'error';
+      resultDiv.textContent = `Rejected: ${data.reason}`;
+    }
+  } catch (e) {
+    resultDiv.className = 'error';
+    resultDiv.textContent = 'Could not reach the hub. Is customer_portal_node running?';
+  }
+}
+</script>
+</body>
+</html>
